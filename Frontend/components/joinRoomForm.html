@@ -1,4 +1,4 @@
-<form action="" onsubmit="(e) => e.preventDefault()">
+<form action="" onsubmit="(e) => joinSomeRoom(e)" id="roomJoinForm">
     <div class="field">
         <label for="rCode">Room Code</label>
         <div class="control">
@@ -14,3 +14,11 @@
         </div>
     </div>
 </form>
+
+<script>
+    let form = document.getElementById("roomJoinForm")
+    form.addEventListener("submit", (ev) => {
+        ev.preventDefault()
+        joinSomeRoom()
+    })
+</script>
