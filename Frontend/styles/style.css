@@ -1,3 +1,13 @@
 .centered{
     text-align: center;
 }
+
+.form-content{
+   margin-top: 2em;
+}
+
+.form-body{
+    margin: auto;
+    width: 50%;
+    height: 100%;
+}

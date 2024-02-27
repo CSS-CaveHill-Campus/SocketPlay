@@ -4,11 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <title>Socket Play</title>
 </head>
 <body>
     <div class="centered">
         <h1>Welcome to Socket Play</h1>
+        <p>To Start, just enter a name and choose a color! </p>        
+    </div>
+    <div class="form-content">
+        <form action="" onsubmit="(e) => e.preventDefault()" class="form-body">
+            <div class="field">
+                <label for="name">Name</label>
+                <div class="control">
+                    <input class="input" type="text" name="name" id="name">
+                </div>
+            </div>
+            <div class="field">
+                <label for="color">Choose your color</label>
+                <div class="control">
+                    <input type="color" class="input" name="color" id="color">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-link xl is-fullwidth">Submit</button>
+                </div>
+            </div>
+        </form>
     </div>
 </body>
 <script src="scripts/script.js"></script>
