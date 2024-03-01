@@ -31,7 +31,19 @@ const moveMap = {
     "UP": moveUp
 }
 
-const move_player = (move_key) => {
+let moveID = null
+const onPlayerMoveStart = (direction) =>{
+    moving = true;
+    moveID = setInterval(() => movePlayer(direction), SPEED * 5);
+}
+
+const onPlayerMoveEnd = () => {
+    if (moveID)
+        clearInterval(moveID)
+}
+
+
+const movePlayer = (move_key) => {
     moveMap[move_key]();
 }
 
@@ -58,3 +70,17 @@ window.onload = (ev) => {
     player.style.left = player_x + "px";
     window.addEventListener("keydown", handleKeyPress);
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const buttonsContainer = document.querySelector('.buttons');
+    const buttons = buttonsContainer.querySelectorAll('button');
+
+    buttons.forEach(button => {
+        button.addEventListener('touchstart', function() {
+            const direction = button.dataset.direction.toUpperCase();
+            onPlayerMoveStart(direction);
+        });
+
+        button.addEventListener('touchend', onPlayerMoveEnd);
+    });
+});

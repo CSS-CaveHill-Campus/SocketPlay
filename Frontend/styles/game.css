@@ -16,3 +16,32 @@ body{
     left: 15px;
     background-color: aqua;
 }
+
+.buttons{
+    display: none;
+    
+}
+
+@media only screen and (max-width: 768px) {
+    .buttons{
+        display: flex;
+        position: absolute;
+        bottom: 1em;
+        right: 3em;
+        align-items: last baseline;
+    }
+
+    button{
+        width: 5em;
+        height: 3em;
+        max-height: 3em;
+        padding: 0.5em;
+        margin: 0.3em;
+    }
+    
+    .flexed-up{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
