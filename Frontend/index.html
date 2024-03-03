@@ -11,7 +11,8 @@
 <body>
     <div class="centered">
         <h1>Welcome to Socket Play</h1>
-        <p id="helpText">To Start, just enter a name and choose a color! </p>        
+        <p id="helpText">To Start, just enter a name and choose a color! </p>       
+        <span id="notification" style="color: red; font-size: 1.3em;"></span> 
     </div>
     <div class="form">
         <div class="form-body" hx-get="./components/introForm.html" hx-trigger="load">
@@ -19,6 +20,7 @@
         </div>
     </div>
 </body>
+<script src="scripts/storage.js"></script>
 <script src="scripts/script.js"></script>
 
 </html>

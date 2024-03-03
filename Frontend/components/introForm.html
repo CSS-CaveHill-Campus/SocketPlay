@@ -1,4 +1,5 @@
-<form action="" onsubmit="(e) => e.preventDefault()" hx-get="/components/joinRoomForm.html">
+<!-- <form action="" id="characterCreateForm" hx-get="/components/joinRoomForm.html"> -->
+<form action="" id="characterCreateForm">
     <div class="field">
         <label for="name">Name</label>
         <div class="control">
@@ -13,7 +14,26 @@
     </div>
     <div class="field">
         <div class="control">
-            <button class="button is-link is-fullwidth" onclick="promptForRoomCode()">Submit</button>
+            <button class="button is-link is-fullwidth">Submit</button>
         </div>
     </div>
 </form>
+
+<script>
+    document.getElementById("characterCreateForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        let name = document.getElementById("name").value.trim();
+        let valid = true;
+        if (name.length == 0 || name.length > 10 || name.length < 2){
+            setNotification("Name is of invalid length. Must be between 2 and 11 characters");
+            valid = false;
+        }
+
+        let color = document.getElementById("color").value;
+
+        if (valid === true){
+            storeUserInfo({name, color})
+            htmx.ajax("GET", "/components/joinRoomForm.html", {target: "#characterCreateForm"})
+        }
+    })
+</script>

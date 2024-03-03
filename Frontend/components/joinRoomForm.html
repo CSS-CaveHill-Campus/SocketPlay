@@ -16,6 +16,7 @@
 </form>
 
 <script>
+    document.getElementById("helpText").innerHTML = "If you have a room code, enter it below, otherwise create your own room!"
     let form = document.getElementById("roomJoinForm")
     form.addEventListener("submit", (ev) => {
         ev.preventDefault()
