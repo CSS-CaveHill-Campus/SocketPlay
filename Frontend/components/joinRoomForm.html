@@ -1,16 +1,13 @@
-<form action="" onsubmit="(e) => joinSomeRoom(e)" id="roomJoinForm">
+<form action="" id="roomJoinForm">
     <div class="field">
         <label for="rCode">Room Code</label>
         <div class="control">
-            <input class="input" type="text" name="rCode" id="rCode">
+            <input class="input" type="text" name="rCode" id="rCode" required maxlength="6" minlength="6">
         </div>
     </div>
     <div class="field is-grouped">
         <div class="control">
             <button class="button is-success">Join Room</button>
-        </div>
-        <div class="control">
-            <button class="button is-link">Create Room</button>
         </div>
     </div>
 </form>
@@ -20,6 +17,7 @@
     let form = document.getElementById("roomJoinForm")
     form.addEventListener("submit", (ev) => {
         ev.preventDefault()
-        joinSomeRoom()
+        code = document.getElementById("rCode").value
+        joinRoom(code)
     })
 </script>

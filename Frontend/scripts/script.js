@@ -3,3 +3,7 @@ const setNotification = (message) => {
     notif.innerHTML = message;
     setTimeout(() => notif.innerHTML = "", 5000)
 }
+
+const joinRoom = (code) => {
+    window.location.href = `/game.html/?roomCode=${code}`
+}
