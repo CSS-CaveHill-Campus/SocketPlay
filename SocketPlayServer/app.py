@@ -24,7 +24,7 @@ async def index():
 
 # Sockets
 
-room_codes = []
+room_codes = set()
 
 rooms = {}
 
@@ -33,11 +33,18 @@ async def connect(sid, environ, auth):
     print("A new connection has been made")
     await sio.emit("roomAsk", {"text": "What room are you in?"})
 
+
+
 @sio.on("joinRoom")
 async def joinRoom(sid, data):
     room_code = data["roomCode"]
     await sio.enter_room(sid, room_code)
-    room_codes.append(room_code)
+    room_codes.add(room_code)
     await sio.emit("roomJoined", {"sid": sid, "roomCode": room_code})
     rooms.setdefault(room_code, {})
-    # rooms[room_code][sid] = Player(sid, data['name'], data['color'], data['xPos'], data['yPos'])
+
+
+@sio.on("createPlayer")
+async def createPlayer(sid, data):
+    room_code = data['roomCode']
+    rooms[room_code][sid] = Player(sid, data['name'], data['color'], data['xPos'], data['yPos'], room_code)

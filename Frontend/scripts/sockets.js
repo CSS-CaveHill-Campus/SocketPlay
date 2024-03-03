@@ -30,13 +30,24 @@ socket.on("roomAsk", () => {
         return
     }
 
-    let player = document.getElementById("player1")
-
     socket.emit("joinRoom", {roomCode})
 })
 
 socket.on("roomJoined", ({sid, roomCode}) => {
     document.getElementById("roomCode").innerHTML = roomCode;
+    addLocalEntry("roomCode", roomCode)
     addLocalEntry("sid", sid)
+
+    let name = getLocalEntry("name")
+    let color = getLocalEntry("color")
+
+    player = new Player(sid, name, color, 0, 0)
+    addPlayer(player)
+    
     setNotification(`Successfully joined room: ${roomCode}`)
+    socket.emit("createPlayer", {roomCode, name, color, "xPos": 0, "yPos":0})
+})
+
+socket.on("gameState", ({gameState}) => {
+    drawCanvas(gameState)
 })

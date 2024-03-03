@@ -7,14 +7,20 @@ let ctx = null
 
 const players = []
 
-const draw = () => {
-    const canvas = document.getElementById("mainGame")
+const addPlayer = (player) => {
+    players.push(player)
+}
+
+const canvas = document.getElementById("mainGame")
+
+const drawCanvas = (gameState) => {
     if (canvas.getContext){
         ctx = canvas.getContext('2d')
 
-        ctx.fillRect(0, 0, 30, 30)
+        for (let player of gameState.players){
+            if (player.sid == players[0].playerID) continue;
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x_pos, player.y_pos, player.size, player.size)
+        }
     }
-
 }
-
-window.addEventListener('load', draw)

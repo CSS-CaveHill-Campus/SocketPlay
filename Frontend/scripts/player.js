@@ -7,20 +7,21 @@ class Player{
         this.color = color;
         this.x_pos = x_pos;
         this.y_pos = y_pos;
+        this.size = 30;
     }
 
     moveCharacter = (direction) => {
         switch(direction) {
-            case "ArrowLeft":
+            case "moveLeft":
                 this.x_pos -= SPEED;
                 break;
-            case "ArrowRight":
+            case "moveRight":
                 this.x_pos += SPEED;
                 break;
-            case "ArrowUp":
+            case "moveUp":
                 this.y_pos -= SPEED;
                 break;
-            case "ArrowDown":
+            case "moveDown":
                 this.y_pos += SPEED;
                 break;
         }
@@ -52,10 +53,10 @@ const moveDown = () => {
 }
 
 const moveMap = {
-    "DOWN": moveDown,
-    "LEFT": moveLeft,
-    "RIGHT": moveRight,
-    "UP": moveUp
+    "ArrowUp": "moveUp",
+    "ArrowLeft": "moveLeft",
+    "ArrowRight": "moveRight",
+    "ArrowDown": "moveDown"
 }
 
 let moveID = null
@@ -75,14 +76,17 @@ const movePlayer = (move_key) => {
 }
 
 const handleKeyPress = (e) => {
-   
+    if (e.key in moveMap){
+        player.moveCharacter(moveMap[e.key])
+    }
 }
 
 window.onload = (ev) => {
-    player = document.getElementById(playerID);
-    player.style.top = player_y + "px";
-    player.style.left = player_x + "px";
-    window.addEventListener("keydown", handleKeyPress);
+    setTimeout(() => {
+        
+        addPlayer(player)
+        window.addEventListener("keydown", handleKeyPress);
+    }, 2000)
 }
 
 document.addEventListener("DOMContentLoaded", function() {
