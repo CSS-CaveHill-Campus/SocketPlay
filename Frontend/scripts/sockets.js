@@ -1,6 +1,7 @@
 const notif = document.getElementById("notification")
 
 const socket = io("http://127.0.0.1:8000/")
+let sid = null
 
 const setupRoom = () => {
     let url = window.location.search;
@@ -18,6 +19,10 @@ const setupRoom = () => {
 
 setupRoom()
 
+const getSocketID = () => {
+    return getLocalEntry("sid")
+}
+
 socket.on("roomAsk", () => {
     let roomCode = getLocalEntry("roomCode");
     if (roomCode === null){
@@ -30,7 +35,8 @@ socket.on("roomAsk", () => {
     socket.emit("joinRoom", {roomCode})
 })
 
-socket.on("roomJoined", ({roomCode}) => {
+socket.on("roomJoined", ({sid, roomCode}) => {
     document.getElementById("roomCode").innerHTML = roomCode;
+    addLocalEntry("sid", sid)
     setNotification(`Successfully joined room: ${roomCode}`)
 })

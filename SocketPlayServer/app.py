@@ -38,6 +38,6 @@ async def joinRoom(sid, data):
     room_code = data["roomCode"]
     await sio.enter_room(sid, room_code)
     room_codes.append(room_code)
-    await sio.emit("roomJoined", {"roomCode": room_code})
+    await sio.emit("roomJoined", {"sid": sid, "roomCode": room_code})
     rooms.setdefault(room_code, {})
     # rooms[room_code][sid] = Player(sid, data['name'], data['color'], data['xPos'], data['yPos'])

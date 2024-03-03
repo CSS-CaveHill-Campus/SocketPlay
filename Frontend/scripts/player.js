@@ -1,3 +1,32 @@
+const SPEED = 5;
+
+class Player{
+    constructor(playerID, name, color, x_pos, y_pos){
+        this.playerID = playerID;
+        this.name = name;
+        this.color = color;
+        this.x_pos = x_pos;
+        this.y_pos = y_pos;
+    }
+
+    moveCharacter = (direction) => {
+        switch(direction) {
+            case "ArrowLeft":
+                this.x_pos -= SPEED;
+                break;
+            case "ArrowRight":
+                this.x_pos += SPEED;
+                break;
+            case "ArrowUp":
+                this.y_pos -= SPEED;
+                break;
+            case "ArrowDown":
+                this.y_pos += SPEED;
+                break;
+        }
+    }
+}
+
 let playerID = "player1";
 let player = null;
 let player_y = Math.floor(Math.random() * window.innerHeight) + 1;
@@ -5,8 +34,6 @@ let player_x = Math.floor(Math.random() * window.innerWidth) + 1;
 let player_size = 10
 
 const MAX_SIZE = 50
-
-const SPEED = 5;
 
 const moveLeft = () => {
     player.style.left = Math.floor(parseInt(player.style.left) - SPEED) + "px";
@@ -48,20 +75,7 @@ const movePlayer = (move_key) => {
 }
 
 const handleKeyPress = (e) => {
-    switch(e.key) {
-        case "ArrowLeft":
-            moveLeft();
-            break;
-        case "ArrowRight":
-            moveRight();
-            break;
-        case "ArrowUp":
-            moveUp();
-            break;
-        case "ArrowDown":
-            moveDown();
-            break;
-    }
+   
 }
 
 window.onload = (ev) => {
