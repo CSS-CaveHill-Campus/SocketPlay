@@ -18,6 +18,17 @@ const setupRoom = () => {
 
 setupRoom()
 
-socket.on("room", (data) => {
-    notif.innerHTML = data['text'];
+socket.on("roomAsk", () => {
+    let roomCode = getLocalEntry("roomCode");
+    if (roomCode === null){
+        window.location.href = "/";
+        return
+    }
+
+    socket.emit("joinRoom", {roomCode})
+})
+
+socket.on("roomJoined", ({roomCode}) => {
+    document.getElementById("roomCode").innerHTML = roomCode;
+    setNotification(`Successfully joined room: ${roomCode}`)
 })

@@ -23,7 +23,16 @@ async def index():
 
 # Sockets
 
+room_codes = []
+
 @sio.on("connect")
 async def connect(sid, environ, auth):
     print("A new connection has been made")
-    await sio.emit("room", {"text": "Hello world"})
+    await sio.emit("roomAsk", {"text": "What room are you in?"})
+
+@sio.on("joinRoom")
+async def joinRoom(sid, data):
+    room_code = data["roomCode"]
+    await sio.enter_room(sid, room_code)
+    room_codes.append(room_code)
+    await sio.emit("roomJoined", {"roomCode": room_code})
