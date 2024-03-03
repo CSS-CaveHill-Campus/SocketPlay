@@ -7,3 +7,7 @@ class Player:
         self.y_pos = y_pos
         self.size = size
         self.room_code = room_code
+
+    def set_pos(self, x_pos:float, y_pos:float):
+        self.x_pos = x_pos
+        self.y_pos = y_pos

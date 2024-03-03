@@ -8,7 +8,7 @@ room_codes = set()
 
 rooms = {}
 
-def get_player_by_id(room_code, sid):
+def get_player_by_id(room_code, sid) -> Player:
     if room_code in room_codes:
         room = rooms[room_code]
         player = room[sid]
@@ -29,7 +29,7 @@ async def disconnect(sid):
 
 
 @sio.on("joinRoom")
-async def joinRoom(sid, data):
+async def join_room(sid, data):
     room_code = data["roomCode"]
     await sio.enter_room(sid, room_code)
     room_codes.add(room_code)
@@ -38,6 +38,11 @@ async def joinRoom(sid, data):
 
 
 @sio.on("createPlayer")
-async def createPlayer(sid, data):
+async def create_player(sid, data):
     room_code = data['roomCode']
     rooms[room_code][sid] = Player(sid, data['name'], data['color'], data['xPos'], data['yPos'], data['size'], room_code)
+
+@sio.on("playerMove")
+async def player_move(sid, data):
+    player = get_player_by_id(data['roomCode'], sid)
+    player.set_pos(data['xPos'], data['yPos'])

@@ -5,17 +5,13 @@ const setNotification = (message) => {
 
 let ctx = null
 
-const players = []
-
-const addPlayer = (player) => {
-    players.push(player)
-}
-
 const canvas = document.getElementById("mainGame")
 
 const drawCanvas = (players) => {
     if (canvas.getContext){
         ctx = canvas.getContext('2d')
+        ctx.clearRect(0, 0, 1024, 500)
+        
         for (let player of players){
             ctx.fillStyle = player.color;
             ctx.fillRect(player.x_pos, player.y_pos, player.size, player.size)
