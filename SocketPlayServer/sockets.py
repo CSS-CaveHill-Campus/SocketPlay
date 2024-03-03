@@ -33,4 +33,4 @@ async def joinRoom(sid, data):
 @sio.on("createPlayer")
 async def createPlayer(sid, data):
     room_code = data['roomCode']
-    rooms[room_code][sid] = Player(sid, data['name'], data['color'], data['xPos'], data['yPos'], room_code)
+    rooms[room_code][sid] = Player(sid, data['name'], data['color'], data['xPos'], data['yPos'], data['size'], room_code)

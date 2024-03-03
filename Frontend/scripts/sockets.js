@@ -45,9 +45,9 @@ socket.on("roomJoined", ({sid, roomCode}) => {
     addPlayer(player)
     
     setNotification(`Successfully joined room: ${roomCode}`)
-    socket.emit("createPlayer", {roomCode, name, color, "xPos": 0, "yPos":0})
+    socket.emit("createPlayer", {roomCode, name, color, "xPos": 0, "yPos":0, "size": player.size})
 })
 
-socket.on("gameState", ({gameState}) => {
-    drawCanvas(gameState)
+socket.on("gameState", ({players}) => {
+    drawCanvas(players)
 })

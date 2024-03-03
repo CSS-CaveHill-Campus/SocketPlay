@@ -13,12 +13,10 @@ const addPlayer = (player) => {
 
 const canvas = document.getElementById("mainGame")
 
-const drawCanvas = (gameState) => {
+const drawCanvas = (players) => {
     if (canvas.getContext){
         ctx = canvas.getContext('2d')
-
-        for (let player of gameState.players){
-            if (player.sid == players[0].playerID) continue;
+        for (let player of players){
             ctx.fillStyle = player.color;
             ctx.fillRect(player.x_pos, player.y_pos, player.size, player.size)
         }
