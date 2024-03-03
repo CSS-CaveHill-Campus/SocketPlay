@@ -1,5 +1,6 @@
-from fastapi import FastAPI
 import socketio
+from fastapi import FastAPI
+from fastapi_utils.tasks import repeat_every
 from fastapi.middleware.cors import CORSMiddleware
 from player import Player
 
@@ -18,6 +19,8 @@ app.add_middleware(
 
 app.mount("/socket.io", socket_app)
 
+FPS = 30
+
 @app.get("/")
 async def index():
     return {"Hello": "World"}
@@ -34,7 +37,6 @@ async def connect(sid, environ, auth):
     await sio.emit("roomAsk", {"text": "What room are you in?"})
 
 
-
 @sio.on("joinRoom")
 async def joinRoom(sid, data):
     room_code = data["roomCode"]
@@ -48,3 +50,10 @@ async def joinRoom(sid, data):
 async def createPlayer(sid, data):
     room_code = data['roomCode']
     rooms[room_code][sid] = Player(sid, data['name'], data['color'], data['xPos'], data['yPos'], room_code)
+
+@app.on_event("startup")
+@repeat_every(seconds=(1 / FPS))
+async def update_game_state():
+    for room_code in room_codes:
+        players = [player.__dict__ for player in rooms[room_code].values()]
+        await sio.emit("gameState", {"players": players}, room=room_code)
