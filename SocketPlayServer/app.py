@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import socketio
 from fastapi.middleware.cors import CORSMiddleware
+from player import Player
 
 app = FastAPI()
 
@@ -25,6 +26,8 @@ async def index():
 
 room_codes = []
 
+rooms = {}
+
 @sio.on("connect")
 async def connect(sid, environ, auth):
     print("A new connection has been made")
@@ -36,3 +39,5 @@ async def joinRoom(sid, data):
     await sio.enter_room(sid, room_code)
     room_codes.append(room_code)
     await sio.emit("roomJoined", {"roomCode": room_code})
+    rooms.setdefault(room_code, {})
+    # rooms[room_code][sid] = Player(sid, data['name'], data['color'], data['xPos'], data['yPos'])

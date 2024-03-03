@@ -25,6 +25,8 @@ socket.on("roomAsk", () => {
         return
     }
 
+    let player = document.getElementById("player1")
+
     socket.emit("joinRoom", {roomCode})
 })
 
