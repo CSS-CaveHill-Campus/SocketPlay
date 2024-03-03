@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/game.css">
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js" integrity="sha384-Gr6Lu2Ajx28mzwyVR8CFkULdCU7kMlZ9UthllibdOSo6qAiN+yXNHqtgdTvFXMT4" crossorigin="anonymous"></script>
     <title>Socket Play - Game</title>
 </head>
 <body>
+    <div style="text-align: center;">
+        <span id="notification"></span>
+    </div>
+        
     <div class="container">
         <div class="player" id="player1" onkeydown="move_player"></div>
         <div class="buttons">
@@ -19,5 +24,6 @@
         </div>
     </div>
 </body>
+<script src="scripts/sockets.js"></script>
 <script src="scripts/game.js"></script>
 </html>
