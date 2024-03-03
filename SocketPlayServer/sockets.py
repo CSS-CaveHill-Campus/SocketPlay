@@ -18,7 +18,7 @@ def get_player_by_id(room_code, sid) -> Player:
 @sio.on("connect")
 async def connect(sid, environ, auth):
     print("A new connection has been made")
-    await sio.emit("roomAsk", {"text": "What room are you in?"})
+    await sio.emit("roomAsk", {"text": "What room are you in?"}, sid)
 
 @sio.on("disconnect")
 async def disconnect(sid):
@@ -33,7 +33,7 @@ async def join_room(sid, data):
     room_code = data["roomCode"]
     await sio.enter_room(sid, room_code)
     room_codes.add(room_code)
-    await sio.emit("roomJoined", {"sid": sid, "roomCode": room_code})
+    await sio.emit("roomJoined", {"sid": sid, "roomCode": room_code}, sid)
     rooms.setdefault(room_code, {})
 
 
