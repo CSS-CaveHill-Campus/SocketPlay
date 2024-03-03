@@ -24,10 +24,6 @@ async def index():
 
 # Sockets
 
-room_codes = set()
-
-rooms = {}
-
 @app.on_event("startup")
 @repeat_every(seconds=(1 / FPS))
 async def update_game_state():

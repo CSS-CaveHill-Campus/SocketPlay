@@ -14,7 +14,7 @@ async def connect(sid, environ, auth):
     await sio.emit("roomAsk", {"text": "What room are you in?"})
 
 @sio.on("disconnect")
-async def disconnect(sid, environ, data):
+async def disconnect(sid):
     for room_code in room_codes:
         room = rooms[room_code]
         if sid in room.keys():
