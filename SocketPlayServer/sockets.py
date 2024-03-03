@@ -8,6 +8,13 @@ room_codes = set()
 
 rooms = {}
 
+def get_player_by_id(room_code, sid):
+    if room_code in room_codes:
+        room = rooms[room_code]
+        player = room[sid]
+        return player 
+    return None
+
 @sio.on("connect")
 async def connect(sid, environ, auth):
     print("A new connection has been made")
