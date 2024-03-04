@@ -33,7 +33,7 @@
 
         if (valid === true){
             storeUserInfo({name, color})
-            htmx.ajax("GET", "/components/joinRoomForm.html", {target: "#characterCreateForm"})
+            htmx.ajax("GET", "components/joinRoomForm.html", {target: "#characterCreateForm"})
         }
     })
 </script>
