@@ -1,8 +1,9 @@
 import socketio
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi_utils.tasks import repeat_every
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.templating import Jinja2Templates
 from sockets import socket_app, sio, rooms, room_codes
 
 app = FastAPI()
@@ -14,13 +15,17 @@ app.add_middleware(
     allow_headers="*"
 )
 
-app.mount("/", socket_app)
+app.mount("/socket.io", socket_app)
+
+templates = Jinja2Templates(directory="templates")
 
 FPS = 30
 
 @app.get("/")
-async def index():
-    return {"Hello": "World"}
+async def index(request: Request):
+    return templates.TemplateResponse(
+        name="index.html", context={"request": request}
+    )
 
 # Sockets
 
