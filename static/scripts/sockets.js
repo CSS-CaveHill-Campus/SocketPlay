@@ -2,7 +2,7 @@ const notif = document.getElementById("notification")
 let sid = null
 
 const setupRoom = () => {
-    let roomCode = document.getElementById("roomCode").value
+    let roomCode = document.getElementById("roomCode").innerText
     addLocalEntry("roomCode", roomCode)
 }
 

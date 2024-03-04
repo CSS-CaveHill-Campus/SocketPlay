@@ -5,5 +5,5 @@ const setNotification = (message) => {
 }
 
 const joinRoom = (code) => {
-    window.location.href = `/game?roomCode=${code}`
+    window.location.href = `/game/${code}`
 }

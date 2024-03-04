@@ -41,7 +41,7 @@ async def getJoinRoomForm(request: Request):
         name="joinRoomForm.html", context={"request": request}
     )
 
-@app.get("/game")
+@app.get("/game/{roomCode}")
 async def get_game(request: Request, roomCode: str):
     return templates.TemplateResponse(
         name="game.html", context={"request": request, "room_code": roomCode}
