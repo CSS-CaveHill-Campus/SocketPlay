@@ -2,17 +2,8 @@ const notif = document.getElementById("notification")
 let sid = null
 
 const setupRoom = () => {
-    let url = window.location.search;
-    let getQuery = url.split("?")[1]
-    let params = getQuery.split("&")
-    
-    for (let param of params){
-        const [key, value] = param.split('=')
-        if (key == "roomCode"){
-            addLocalEntry(key, value);
-            break
-        }
-    }
+    let roomCode = document.getElementById("roomCode").value
+    addLocalEntry("roomCode", roomCode)
 }
 
 setupRoom()
@@ -40,7 +31,6 @@ socket.on("roomJoined", ({sid, roomCode}) => {
     let color = getLocalEntry("color")
 
     player = new Player(sid, name, color, Math.floor(Math.random() * 400), Math.floor(Math.random() * 300), roomCode)
-    // addPlayer(player)
     
     setNotification(`Successfully joined room: ${roomCode}`)
     socket.emit("createPlayer", {roomCode, name, color, "xPos": player.xPos, "yPos": player.yPos, "size": player.size})

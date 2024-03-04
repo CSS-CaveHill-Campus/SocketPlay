@@ -2,7 +2,7 @@ import socketio
 from player import Player
 
 sio = socketio.AsyncServer(async_mode="asgi", cors_allowed_origins=[])
-socket_app = socketio.ASGIApp(sio)
+socket_app = socketio.ASGIApp(sio, socketio_path="")
 
 room_codes = set()
 

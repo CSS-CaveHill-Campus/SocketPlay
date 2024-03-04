@@ -43,7 +43,6 @@ const moveMap = {
 }
 
 const handleKeyPress = (e) => {
-    console.log("Hello");
     if (e.key in moveMap){
         player.moveCharacter(moveMap[e.key])
     }

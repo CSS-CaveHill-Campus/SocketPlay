@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request
 from fastapi_utils.tasks import repeat_every
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from sockets import socket_app, sio, rooms, room_codes
 
 app = FastAPI()
@@ -16,6 +17,7 @@ app.add_middleware(
 )
 
 app.mount("/socket.io", socket_app)
+app.mount("/static", StaticFiles(directory="static"))
 
 templates = Jinja2Templates(directory="templates")
 
@@ -25,6 +27,24 @@ FPS = 30
 async def index(request: Request):
     return templates.TemplateResponse(
         name="index.html", context={"request": request}
+    )
+
+@app.get("/intro")
+async def getIntroForm(request: Request):
+    return templates.TemplateResponse(
+        name="introForm.html", context={"request": request}
+    )
+
+@app.get("/join")
+async def getJoinRoomForm(request: Request):
+    return templates.TemplateResponse(
+        name="joinRoomForm.html", context={"request": request}
+    )
+
+@app.get("/game")
+async def get_game(request: Request, roomCode: str):
+    return templates.TemplateResponse(
+        name="game.html", context={"request": request, "room_code": roomCode}
     )
 
 # Sockets

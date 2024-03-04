@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="static/styles/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
     <title>Socket Play</title>
@@ -15,12 +15,12 @@
         <span id="notification" style="color: red; font-size: 1.3em;"></span> 
     </div>
     <div class="form">
-        <div class="form-body" hx-get="components/introForm.html" hx-trigger="load">
+        <div class="form-body" hx-get="/intro" hx-trigger="load">
 
         </div>
     </div>
 </body>
-<script src="scripts/storage.js"></script>
-<script src="scripts/script.js"></script>
+<script src="static/scripts/storage.js"></script>
+<script src="static/scripts/script.js"></script>
 
 </html>
