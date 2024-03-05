@@ -28,7 +28,6 @@ class Player{
                 this.yPos += SPEED;
                 break;
         }
-
         socket.emit("playerMove", {"xPos": this.xPos, "yPos": this.yPos, "roomCode": this.roomCode})
     }
 }
@@ -54,16 +53,36 @@ window.onload = (ev) => {
     }, 2000)
 }
 
-// document.addEventListener("DOMContentLoaded", function() {
-//     const buttonsContainer = document.querySelector('.buttons');
-//     const buttons = buttonsContainer.querySelectorAll('button');
+let interval = null
 
-//     buttons.forEach(button => {
-//         button.addEventListener('touchstart', function() {
-//             const direction = button.dataset.direction.toUpperCase();
-//             onPlayerMoveStart(direction);
-//         });
+const onPlayerMoveStart = (direction) => {
+    interval = setInterval(
+        (direction) => {
+            player.moveCharacter(moveMap[direction])
+        }, 
+        1000 / 30,
+        direction
+    )
+}
 
-//         button.addEventListener('touchend', onPlayerMoveEnd);
-//     });
-// });
+const onPlayerMoveEnd = () => {
+    if (interval){
+        clearInterval(interval)
+        interval = null
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const buttonsContainer = document.querySelector('.buttons');
+    const buttons = buttonsContainer.querySelectorAll('button');
+
+    buttons.forEach(button => {
+        button.addEventListener('touchstart', function() {
+            const direction = button.dataset.direction;
+            moving = true
+            onPlayerMoveStart(direction);
+        });
+
+        button.addEventListener('touchend', onPlayerMoveEnd);
+    });
+});
