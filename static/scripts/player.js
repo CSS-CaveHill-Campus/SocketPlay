@@ -1,6 +1,8 @@
 const SPEED = 5;
 const socket = io()
 
+const CANVAS_HEIGHT = 500
+const CANVAS_WIDTH = 1024
 
 class Player{
     constructor(playerID, name, color, xPos, yPos, roomCode){
@@ -27,6 +29,20 @@ class Player{
             case "moveDown":
                 this.yPos += SPEED;
                 break;
+        }
+        if (this.xPos > CANVAS_WIDTH - 30){
+            this.xPos = CANVAS_WIDTH - 30
+        }
+        if(this.xPos < 0){
+            this.xPos = 0
+        }
+
+        if (this.yPos < 0){
+            this.yPos = 0;
+        }
+
+        if (this.yPos > CANVAS_HEIGHT - 30){
+            this.yPos = CANVAS_HEIGHT - 30
         }
         socket.emit("playerMove", {"xPos": this.xPos, "yPos": this.yPos, "roomCode": this.roomCode})
     }
