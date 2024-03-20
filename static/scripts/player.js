@@ -69,24 +69,23 @@ window.onload = (ev) => {
     }, 2000)
 }
 
-let interval = null
+let intervals = []
 
 const onPlayerMoveStart = (direction) => {
-    interval = setInterval(
-        (direction) => {
-            player.moveCharacter(moveMap[direction])
-        }, 
-        1000 / 30,
-        direction
-    )
+    const intervalKey = `${direction}-${Date.now()}`;
+    intervals[intervalKey] = setInterval(() => {
+        player.moveCharacter(moveMap[direction]);
+    }, 1000 / 30);
+    console.log(`Started moving in ${direction} with key ${intervalKey}`);
 }
 
 const onPlayerMoveEnd = () => {
-    if (interval){
-        clearInterval(interval)
-        interval = null
+    for (const key in intervals) {
+        clearInterval(intervals[key]);
+        console.log(`Stopped moving with key ${key}`);
     }
-}
+    intervals = {};
+};
 
 document.addEventListener("DOMContentLoaded", function() {
     const buttonsContainer = document.querySelector('.buttons');
