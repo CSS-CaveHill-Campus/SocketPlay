@@ -29,6 +29,10 @@ async def index(request: Request):
         name="index.html", context={"request": request}
     )
 
+@app.get("/healthz")
+async def health_check():
+    return "I'm alive!"
+
 @app.get("/intro")
 async def getIntroForm(request: Request):
     return templates.TemplateResponse(
